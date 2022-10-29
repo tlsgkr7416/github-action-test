@@ -21,7 +21,7 @@ jobs:
     - name: Set var
       id: set-var
       run: |
-        echo ::set-output name=IMAGE_TAG::$(cat VERSION)
+        echo "IMAGE_TAG=$(cat VERSION)" >> $GITHUB_OUTPUT
 
     - name: Docker build
       run: |
