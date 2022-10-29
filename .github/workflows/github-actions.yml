@@ -18,10 +18,15 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Set var
+      id: set-var
+      run: |
+        echo ::set-output name=IMAGE_TAG::$(cat VERSION)
+
     - name: Docker build
       run: |
         docker build -t github-action-test .
         docker tag github-action-test tlsgkr7416/github-action-test:1
-        docker push tlsgkr7416/github-action-test:$(cat VERSION)
+        docker push tlsgkr7416/github-action-test:${{ steps.set-var.outputs.IMAGE_TAG }}
 
 
